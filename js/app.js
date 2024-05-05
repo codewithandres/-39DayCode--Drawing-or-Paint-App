@@ -1,4 +1,4 @@
-
+// Selecciona el elemento canvas y otros elementos de la interfaz de usuario necesarios para la aplicación.
 const canvas = document.querySelector('canvas'),
     toolsBtn = document.querySelectorAll('.tools'),
     fillColor = document.querySelector('#fill-color'),
@@ -7,8 +7,9 @@ const canvas = document.querySelector('canvas'),
     colorPiker = document.querySelector("#color-piker"),
     clearCanvas = document.querySelector('.cleatr-canvas'),
     saveImage = document.querySelector('.save-image'),
-    ctx = canvas.getContext('2d');
+    ctx = canvas.getContext('2d'); // Obtiene el contexto 2D para dibujar en el canvas.
 
+// Variables para almacenar la posición previa del mouse, una instantánea del canvas, y otras configuraciones.
 let prevMauseX,
     prevMauseY,
     snapshot,
@@ -17,21 +18,24 @@ let prevMauseX,
     selectedTools = 'brush',
     selectedColor = '#000';
 
+// Función para establecer el fondo del canvas.
 const setCanvasBackground = () => {
 
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = selectedColor;
+    ctx.fillStyle = '#fff';  // Establece el color de relleno a blanco.
+    ctx.fillRect(0, 0, canvas.width, canvas.height); // Rellena el canvas con blanco.
+    ctx.fillStyle = selectedColor; // Restablece el color de relleno al color seleccionado.
 
 };
 
+// Evento que se dispara cuando la ventana se carga.
 window.addEventListener('load', () => {
 
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-    setCanvasBackground();
+    canvas.width = canvas.offsetWidth; // Establece el ancho del canvas al ancho del elemento.
+    canvas.height = canvas.offsetHeight;// Establece la altura del canvas a la altura del elemento.
+    setCanvasBackground(); // Llama a la función para establecer el fondo del canvas.
 });
 
+// Objeto para mapear los nombres de las herramientas a sus identificadores.
 const cosntTools = {
     RECTANGLE: 'rectangle',
     CIRCLE: 'circle',
@@ -41,6 +45,7 @@ const cosntTools = {
     BG_BTN: 'background-color'
 };
 
+// Funciones para dibujar formas en el canvas.
 const drawReact = (e) => {
     if (!fillColor.checked) {
         return ctx.strokeRect(e.offsetX, e.offsetY, prevMauseX - e.offsetX, prevMauseY - e.offsetY);
@@ -67,43 +72,50 @@ const drawTriangle = (e) => {
     fillColor.checked ? ctx.fill() : ctx.stroke();
 
 };
+
+// Función que se inicia cuando el usuario presiona el mouse sobre el canvas.
 const startDrawign = (e) => {
     isDrawin = true;
 
-    prevMauseX = e.offsetX;
-    prevMauseY = e.offsetY;
+    prevMauseX = e.offsetX;// Almacena la posición X donde el usuario comenzó a dibujar.
+    prevMauseY = e.offsetY;// Almacena la posición Y donde el usuario comenzó a dibujar.
 
-
+    // Prepara el canvas para dibujar.
     ctx.beginPath();
-    ctx.lineWidth = brushwidth;
-    ctx.strokeStyle = selectedColor;
-    ctx.fillStyle = selectedColor;
+    ctx.lineWidth = brushwidth; // Establece el ancho del pincel.
+    ctx.strokeStyle = selectedColor;// Establece el color del trazo.
+    ctx.fillStyle = selectedColor;  // Establece el color de relleno.
 
-    snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);  // Toma una instantánea del canvas.
 
 };
 
+// Función que se dispara cuando el usuario mueve el mouse sobre el canvas mientras dibuja.
 const drawign = (e) => {
-    if (!isDrawin) return;
-    ctx.putImageData(snapshot, 0, 0);
-    if (selectedTools === cosntTools.BRUSH || selectedTools === cosntTools.ERASER) {
+    if (!isDrawin) return;// Si no está dibujando, no hace nada.
 
+    ctx.putImageData(snapshot, 0, 0);  // Restaura la instantánea del canvas.
+
+    // Comprueba qué herramienta está seleccionada y dibuja en consecuencia.
+    if (selectedTools === cosntTools.BRUSH || selectedTools === cosntTools.ERASER) {
+        // Si la herramienta es el pincel o la goma, dibuja una línea.
         ctx.strokeStyle = selectedTools === cosntTools.ERASER ?
             '#FFF' : selectedColor;
 
-        ctx.lineTo(e.offsetX, e.offsetY);
-        ctx.stroke();
+        ctx.lineTo(e.offsetX, e.offsetY);  // Dibuja una línea hasta la posición actual del mouse.
+        ctx.stroke();// Aplica el trazo.
 
     } else if (selectedTools === cosntTools.RECTANGLE) {
-        drawReact(e);
+        drawReact(e);// Llama a la función para dibujar un rectángulo.
     } else if (selectedTools === cosntTools.CIRCLE) {
         drawCircle(e)
-    } else {
-        drawTriangle(e);
+    } else { // Llama a la función para dibujar un círculo.
+        drawTriangle(e);// Llama a la función para dibujar un triángulo.
     };
 
 };
 
+// Eventos para manejar la interacción del usuario con la interfaz de usuario y el canvas.
 [...toolsBtn].map(btn => {
     btn.addEventListener('click', () => {
 
