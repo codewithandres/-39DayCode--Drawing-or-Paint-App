@@ -179,3 +179,8 @@ section {
 .drawing-borad {
     flex: 1;
 }
+
+.drawing-borad canvas {
+    width: 100%;
+    height: 100%;
+}
