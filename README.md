@@ -1,3 +1,5 @@
+![Logo de mi proyecto](https://github.com/DizeWEb/-38DayCode-Image-Editor/blob/main/img/bandicam%202024-05-04%2017-01-28-146.jpg)
+
 # Proyecto de Dibujo en Canvas
 
 Este proyecto es una aplicación web simple que permite a los usuarios dibujar en un canvas usando diferentes herramientas como pinceles, borradores y formas geométricas.
@@ -29,4 +31,4 @@ Este proyecto es una aplicación web simple que permite a los usuarios dibujar e
 
 Clone el repositorio a su máquina local:
 
-!Descripción de la imagen
+
