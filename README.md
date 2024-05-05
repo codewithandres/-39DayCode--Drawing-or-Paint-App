@@ -1,4 +1,4 @@
-![Logo de mi proyecto](https://github.com/DizeWEb/-38DayCode-Image-Editor/blob/main/img/bandicam%202024-05-04%2017-01-28-146.jpg)
+![Logo de mi proyecto](https://github.com/dizedesign/-39DayCode--Drawing-or-Paint-App/blob/main/bandicam%202024-05-05%2013-09-52-724.jpg?raw=true)
 
 # Proyecto de Dibujo en Canvas
 
