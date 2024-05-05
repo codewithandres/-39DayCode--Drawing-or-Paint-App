@@ -5,6 +5,8 @@ const canvas = document.querySelector('canvas'),
     sizeSlidr = document.querySelector('#size-slider'),
     colorsBtn = document.querySelectorAll('.colors .option'),
     colorPiker = document.querySelector("#color-piker"),
+    clearCanvas = document.querySelector('.cleatr-canvas'),
+    saveImage = document.querySelector('.save-image'),
     ctx = canvas.getContext('2d');
 
 let prevMauseX,
@@ -15,9 +17,19 @@ let prevMauseX,
     selectedTools = 'brush',
     selectedColor = '#000';
 
+const setCanvasBackground = () => {
+
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = selectedColor;
+
+};
+
 window.addEventListener('load', () => {
+
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
+    setCanvasBackground();
 });
 
 const cosntTools = {
@@ -109,13 +121,30 @@ const drawign = (e) => {
         document.querySelector('.options .selected').classList.remove('selected');
         color.classList.add('selected');
         selectedColor = window.getComputedStyle(color).getPropertyValue(`${cosntTools.BG_BTN}`);
+
     });
 });
 
 colorPiker.addEventListener('change', () => {
+
     colorPiker.parentElement.style.background = colorPiker.value;
     colorPiker.parentElement.click();
+
 });
+
+clearCanvas.addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    setCanvasBackground();
+});
+
+saveImage.addEventListener('click', () => {
+
+    const link = document.createElement('a');
+    link.download = `${Date.now()}.jpg`;
+    link.href = canvas.toDataURL();
+    link.click();
+});
+
 sizeSlidr.addEventListener('change', () => brushwidth = sizeSlidr.value);
 canvas.addEventListener('mousedown', startDrawign)
 canvas.addEventListener('mousemove', drawign);
