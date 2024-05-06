@@ -123,7 +123,6 @@ const drawign = (e) => {
         btn.classList.add('active');
         selectedTools = btn.id;
 
-        console.log({ selectedTools });
     });
 });
 
